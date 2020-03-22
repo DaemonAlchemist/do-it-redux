@@ -1,7 +1,7 @@
 {
-  "name": "ts-module-template",
+  "name": "do-it-redux",
   "version": "0.0.0",
-  "description": "A template for creating TypeScript npm modules",
+  "description": "Redux library code for the DoIt serverless application",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DaemonAlchemist/ts-module-template.git"
+    "url": "git+https://github.com/DaemonAlchemist/do-it-redux.git"
   },
   "keywords": [
     "TypeScript",
@@ -29,9 +29,9 @@
   "author": "Andrew Wittrock",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DaemonAlchemist/ts-module-template/issues"
+    "url": "https://github.com/DaemonAlchemist/do-it-redux/issues"
   },
-  "homepage": "https://github.com/DaemonAlchemist/ts-module-template#readme",
+  "homepage": "https://github.com/DaemonAlchemist/do-it-redux#readme",
   "devDependencies": {
     "@types/jest": "^24.0.0",
     "@types/redux": "^3.6.0",
@@ -42,5 +42,6 @@
     "typescript": "^3.3.1"
   },
   "dependencies": {
+    "the-reducer": "^2.3.0"
   }
 }

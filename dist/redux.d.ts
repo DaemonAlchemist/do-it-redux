@@ -1,0 +1,36 @@
+import { IBlocker, ITask, IUser, ITaskCustomAction } from './redux.d';
+export declare const user: {
+    tasks: import("the-reducer").ChildSelector<ITask>;
+    add: (entity: import("the-reducer").PartialEntity<IUser>) => import("the-reducer").IEntityAddAction<IUser>;
+    addMultiple: (entities: import("the-reducer").PartialEntity<IUser>[]) => import("the-reducer").IEntityAddMultipleAction<IUser>;
+    update: (entity: import("the-reducer").PartialEntity<IUser>) => import("the-reducer").IEntityUpdateAction<IUser>;
+    updateMultiple: (entities: import("the-reducer").PartialEntity<IUser>[]) => import("the-reducer").IEntityUpdateMultipleAction<IUser>;
+    delete: (id: string) => import("the-reducer").IEntityDeleteAction<IUser>;
+    deleteMultiple: (ids: string[]) => import("the-reducer").IEntityDeleteMultipleAction<IUser>;
+    clear: () => import("the-reducer").IEntityClearAction<IUser>;
+    custom: (type: string, data: {}) => import("the-reducer").IEntityCustomAction<IUser, {}>;
+    exists: (state: import("the-reducer").IEntityContainer<IUser>, id: string) => boolean;
+    get: (state: import("the-reducer").IEntityContainer<IUser>, id: string) => IUser;
+    getMultiple: (state: import("the-reducer").IEntityContainer<IUser>, filter: import("the-reducer").Filter<IUser>) => IUser[];
+    reducer: import("the-reducer").IEntityReducer<IUser, {}>;
+};
+export declare const task: {
+    blockers: import("the-reducer").RelatedSelector<IBlocker, ITask>;
+    complete: (id: string) => import("the-reducer").IEntityUpdateAction<ITask>;
+    createId: (userId: string, description: string) => string;
+    dependentTasks: import("the-reducer").RelatedSelector<IBlocker, ITask>;
+    user: import("the-reducer").ParentSelector<IUser, ITask>;
+    add: (entity: import("the-reducer").PartialEntity<ITask>) => import("the-reducer").IEntityAddAction<ITask>;
+    addMultiple: (entities: import("the-reducer").PartialEntity<ITask>[]) => import("the-reducer").IEntityAddMultipleAction<ITask>;
+    update: (entity: import("the-reducer").PartialEntity<ITask>) => import("the-reducer").IEntityUpdateAction<ITask>;
+    updateMultiple: (entities: import("the-reducer").PartialEntity<ITask>[]) => import("the-reducer").IEntityUpdateMultipleAction<ITask>;
+    delete: (id: string) => import("the-reducer").IEntityDeleteAction<ITask>;
+    deleteMultiple: (ids: string[]) => import("the-reducer").IEntityDeleteMultipleAction<ITask>;
+    clear: () => import("the-reducer").IEntityClearAction<ITask>;
+    custom: (type: string, data: ITaskCustomAction) => import("the-reducer").IEntityCustomAction<ITask, ITaskCustomAction>;
+    exists: (state: import("the-reducer").IEntityContainer<ITask>, id: string) => boolean;
+    get: (state: import("the-reducer").IEntityContainer<ITask>, id: string) => ITask;
+    getMultiple: (state: import("the-reducer").IEntityContainer<ITask>, filter: import("the-reducer").Filter<ITask>) => ITask[];
+    reducer: import("the-reducer").IEntityReducer<ITask, ITaskCustomAction>;
+};
+export declare const blocker: import("the-reducer").Entity<IBlocker, {}>;
