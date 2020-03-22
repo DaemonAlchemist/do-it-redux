@@ -1,6 +1,6 @@
 import { entity, getChildren, getParent, getRelated } from 'the-reducer';
 import { blockerDef, taskDef, userDef } from './entityDefs';
-import { IBlocker, ITask, IUser, ITaskCustomAction } from './redux.d';
+import { IBlocker, ITask, IUser, ITaskCustomAction } from './types.d';
 
 // User Redux
 export const user = {

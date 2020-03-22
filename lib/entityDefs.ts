@@ -1,5 +1,5 @@
 import { IEntityState } from 'the-reducer';
-import { ITask, Status } from './redux.d';
+import { ITask, Status } from './types.d';
 
 export const userDef = {
     default: {id: "0", name: ""},

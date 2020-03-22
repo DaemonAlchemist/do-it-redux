@@ -1,4 +1,4 @@
-import { IBlocker, ITask, IUser, ITaskCustomAction } from './redux.d';
+import { IBlocker, ITask, IUser, ITaskCustomAction } from './types.d';
 export declare const user: {
     tasks: import("the-reducer").ChildSelector<ITask>;
     add: (entity: import("the-reducer").PartialEntity<IUser>) => import("the-reducer").IEntityAddAction<IUser>;
