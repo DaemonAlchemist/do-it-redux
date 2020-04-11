@@ -1,4 +1,4 @@
-export { blockerDef, taskDef, userDef } from './entityDefs';
-export { blocker, task, user } from './redux';
+export { blockerDef, taskDef, userDef, workflowDef } from './entityDefs';
+export { blocker, task, user, workflow } from './redux';
 export { IBlocker, ITask, IUser, IWorkflow, IWorkflowTask, Status } from './types.d';
 

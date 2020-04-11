@@ -51,3 +51,8 @@ exports.blockerDef = {
     entity: "blockers",
     module: "doIt",
 };
+exports.workflowDef = {
+    default: { id: "", description: "", params: {}, dependsOn: [], tasks: [] },
+    entity: "workflows",
+    module: "doIt",
+};

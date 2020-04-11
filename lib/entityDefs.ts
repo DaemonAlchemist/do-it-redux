@@ -38,3 +38,9 @@ export const blockerDef = {
     entity: "blockers",
     module: "doIt",
 };
+
+export const workflowDef = {
+    default: {id: "", description: "", params: {}, dependsOn: [], tasks: []},
+    entity: "workflows",
+    module: "doIt",
+}

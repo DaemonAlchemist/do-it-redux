@@ -31,3 +31,14 @@ export declare const blockerDef: {
     entity: string;
     module: string;
 };
+export declare const workflowDef: {
+    default: {
+        id: string;
+        description: string;
+        params: {};
+        dependsOn: never[];
+        tasks: never[];
+    };
+    entity: string;
+    module: string;
+};

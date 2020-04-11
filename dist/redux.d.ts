@@ -1,4 +1,4 @@
-import { IBlocker, ITask, IUser, ITaskCustomAction } from './types.d';
+import { IBlocker, ITask, ITaskCustomAction, IUser, IWorkflow } from './types.d';
 export declare const user: {
     tasks: import("the-reducer").ChildSelector<ITask>;
     add: (entity: import("the-reducer").PartialEntity<IUser>) => import("the-reducer").IEntityAddAction<IUser>;
@@ -34,3 +34,4 @@ export declare const task: {
     reducer: import("the-reducer").IEntityReducer<ITask, ITaskCustomAction>;
 };
 export declare const blocker: import("the-reducer").Entity<IBlocker, {}>;
+export declare const workflow: import("the-reducer").Entity<IWorkflow, {}>;

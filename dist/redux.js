@@ -20,3 +20,5 @@ var t = the_reducer_1.entity(entityDefs_1.taskDef);
 exports.task = __assign(__assign({}, t), { blockers: the_reducer_1.getRelated(entityDefs_1.blockerDef, entityDefs_1.taskDef, "dependentTaskId", "blockerTaskId"), complete: function (id) { return t.update({ id: id, status: "Done" }); }, createId: function (userId, description) { return userId + ":" + description + ":" + Math.random(); }, dependentTasks: the_reducer_1.getRelated(entityDefs_1.blockerDef, entityDefs_1.taskDef, "blockerTaskId", "dependentTaskId"), user: the_reducer_1.getParent(entityDefs_1.userDef, entityDefs_1.taskDef, "userId") });
 // Blocker Redux
 exports.blocker = the_reducer_1.entity(entityDefs_1.blockerDef);
+// Workflow Redux
+exports.workflow = the_reducer_1.entity(entityDefs_1.workflowDef);

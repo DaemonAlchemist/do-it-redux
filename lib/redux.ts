@@ -1,6 +1,6 @@
 import { entity, getChildren, getParent, getRelated } from 'the-reducer';
-import { blockerDef, taskDef, userDef } from './entityDefs';
-import { IBlocker, ITask, IUser, ITaskCustomAction } from './types.d';
+import { blockerDef, taskDef, userDef, workflowDef } from './entityDefs';
+import { IBlocker, ITask, ITaskCustomAction, IUser, IWorkflow } from './types.d';
 
 // User Redux
 export const user = {
@@ -21,3 +21,6 @@ export const task = {
 
 // Blocker Redux
 export const blocker = entity<IBlocker>(blockerDef);
+
+// Workflow Redux
+export const workflow = entity<IWorkflow>(workflowDef);
