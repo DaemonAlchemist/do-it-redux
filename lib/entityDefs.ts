@@ -40,7 +40,7 @@ export const blockerDef = {
 };
 
 export const workflowDef = {
-    default: {id: "", description: "", params: {}, dependsOn: [], tasks: []},
+    default: {id: "", description: "", params: {}, tasks: []},
     entity: "workflows",
     module: "doIt",
 }
