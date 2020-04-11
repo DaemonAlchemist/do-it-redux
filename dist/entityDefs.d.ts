@@ -36,7 +36,6 @@ export declare const workflowDef: {
         id: string;
         description: string;
         params: {};
-        dependsOn: never[];
         tasks: never[];
     };
     entity: string;

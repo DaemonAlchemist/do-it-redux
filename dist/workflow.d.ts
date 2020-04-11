@@ -1,0 +1,10 @@
+import { IWorkflow, IWorkflowTask } from "./types";
+export declare const updateDescription: (workflow: IWorkflow, description: string) => IWorkflow;
+export declare const updateParam: (workflow: IWorkflow, name: string, description: string) => IWorkflow;
+export declare const removeParam: (workflow: IWorkflow, name: string) => IWorkflow;
+export declare const addTask: (workflow: IWorkflow, task: IWorkflowTask) => IWorkflow;
+export declare const removeTask: (workflow: IWorkflow, taskId: string) => IWorkflow;
+export declare const updateTaskId: (workflow: IWorkflow, oldId: string, newId: string) => IWorkflow;
+export declare const updateTaskDescription: (workflow: IWorkflow, id: string, description: string) => IWorkflow;
+export declare const updateTaskUser: (workflow: IWorkflow, id: string, userId: string) => IWorkflow;
+export declare const updateTaskDependencies: (workflow: IWorkflow, id: string, dependsOn: string[]) => IWorkflow;

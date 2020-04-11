@@ -34,4 +34,28 @@ export declare const task: {
     reducer: import("the-reducer").IEntityReducer<ITask, ITaskCustomAction>;
 };
 export declare const blocker: import("the-reducer").Entity<IBlocker, {}>;
-export declare const workflow: import("the-reducer").Entity<IWorkflow, {}>;
+export declare const workflow: {
+    util: {
+        updateDescription: (workflow: IWorkflow, description: string) => IWorkflow;
+        updateParam: (workflow: IWorkflow, name: string, description: string) => IWorkflow;
+        removeParam: (workflow: IWorkflow, name: string) => IWorkflow;
+        removeTask: (workflow: IWorkflow, taskId: string) => IWorkflow;
+        addTask: (workflow: IWorkflow, task: import("./types").IWorkflowTask) => IWorkflow;
+        updateTaskId: (workflow: IWorkflow, oldId: string, newId: string) => IWorkflow;
+        updateTaskDependencies: (workflow: IWorkflow, id: string, dependsOn: string[]) => IWorkflow;
+        updateTaskDescription: (workflow: IWorkflow, id: string, description: string) => IWorkflow;
+        updateTaskUser: (workflow: IWorkflow, id: string, userId: string) => IWorkflow;
+    };
+    add: (entity: import("the-reducer").PartialEntity<IWorkflow>) => import("the-reducer").IEntityAddAction<IWorkflow>;
+    addMultiple: (entities: import("the-reducer").PartialEntity<IWorkflow>[]) => import("the-reducer").IEntityAddMultipleAction<IWorkflow>;
+    update: (entity: import("the-reducer").PartialEntity<IWorkflow>) => import("the-reducer").IEntityUpdateAction<IWorkflow>;
+    updateMultiple: (entities: import("the-reducer").PartialEntity<IWorkflow>[]) => import("the-reducer").IEntityUpdateMultipleAction<IWorkflow>;
+    delete: (id: string) => import("the-reducer").IEntityDeleteAction<IWorkflow>;
+    deleteMultiple: (ids: string[]) => import("the-reducer").IEntityDeleteMultipleAction<IWorkflow>;
+    clear: () => import("the-reducer").IEntityClearAction<IWorkflow>;
+    custom: (type: string, data: {}) => import("the-reducer").IEntityCustomAction<IWorkflow, {}>;
+    exists: (state: import("the-reducer").IEntityContainer<IWorkflow>, id: string) => boolean;
+    get: (state: import("the-reducer").IEntityContainer<IWorkflow>, id: string) => IWorkflow;
+    getMultiple: (state: import("the-reducer").IEntityContainer<IWorkflow>, filter: import("the-reducer").Filter<IWorkflow>) => IWorkflow[];
+    reducer: import("the-reducer").IEntityReducer<IWorkflow, {}>;
+};

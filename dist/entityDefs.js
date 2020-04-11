@@ -52,7 +52,7 @@ exports.blockerDef = {
     module: "doIt",
 };
 exports.workflowDef = {
-    default: { id: "", description: "", params: {}, dependsOn: [], tasks: [] },
+    default: { id: "", description: "", params: {}, tasks: [] },
     entity: "workflows",
     module: "doIt",
 };
