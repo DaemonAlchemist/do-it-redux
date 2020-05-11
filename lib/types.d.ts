@@ -11,6 +11,7 @@ export interface ITask {
     description: string;
     status: Status;
     sequence: number;
+    reminder?: number;
 }
 
 export interface ITaskCustomAction {
