@@ -21,16 +21,9 @@ exports.taskDef = {
         resequence: function (state, data) {
             return Object.keys(state)
                 // Get an array of all of the task with their new sequence number
-                .map(function (id) {
-                var newSequence = state[id].sequence;
-                if (newSequence > state[data.srcId].sequence) {
-                    newSequence--;
-                }
-                if (newSequence >= data.destSequence) {
-                    newSequence++;
-                }
-                return __assign(__assign({}, state[id]), { sequence: data.srcId === id ? data.destSequence : newSequence });
-            })
+                .map(function (id) { return (__assign(__assign({}, state[id]), { sequence: data.srcId === id
+                    ? data.destSequence + (data.mode && data.mode === "after" ? 0.5 : -0.5)
+                    : state[id].sequence })); })
                 // Sort the tasks by sequence
                 .sort(function (a, b) { return a.sequence - b.sequence; })
                 // Assign new consecutive sequence numbers
