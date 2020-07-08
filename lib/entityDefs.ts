@@ -12,15 +12,12 @@ export const taskDef = {
         resequence: (state:IEntityState<ITask>, data:any):IEntityState<ITask> => 
             Object.keys(state)
                 // Get an array of all of the task with their new sequence number
-                .map((id:string):ITask => {
-                    let newSequence = state[id].sequence;
-                    if(newSequence > state[data.srcId].sequence) {newSequence--;}
-                    if(newSequence >= data.destSequence) {newSequence++;}
-                    return {
-                        ...state[id],
-                        sequence: data.srcId === id ? data.destSequence : newSequence
-                    }
-                })
+                .map((id:string):ITask => ({
+                    ...state[id],
+                    sequence: data.srcId === id
+                        ? data.destSequence + (data.mode && data.mode === "after" ? 0.5 : -0.5 )
+                        : state[id].sequence
+                }))
                 // Sort the tasks by sequence
                 .sort((a:ITask, b:ITask):number => a.sequence - b.sequence)
                 // Assign new consecutive sequence numbers
