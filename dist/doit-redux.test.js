@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var redux_1 = require("redux");
+var the_reducer_1 = require("the-reducer");
 var entityDefs_1 = require("./entityDefs");
+var redux_2 = require("./redux");
+var util_1 = require("./util");
 var workflow_1 = require("./workflow");
 var origWorkflow = {
     description: "Test Description",
@@ -15,6 +19,60 @@ var origWorkflow = {
         { id: "test3", description: "Test3 task", userId: "Gemma", dependsOn: ["tes2"] },
     ],
 };
+var reducer = redux_1.combineReducers({
+    theReducerEntities: the_reducer_1.theReducer.entity(redux_2.user, redux_2.task, redux_2.blocker, redux_2.workflow),
+});
+var initialState = {
+    theReducerEntities: {}
+};
+describe("basic redux", function () {
+    it("should add tasks", function () {
+        var store = [
+            redux_2.task.add({ id: "1", description: "Task 1", userId: "Andy" }),
+        ].reduce(reducer, initialState);
+        expect(redux_2.task.get(store, "1").description).toEqual("Task 1");
+    });
+    it("should save task recurrence values", function () {
+        var _a, _b;
+        var store = [
+            redux_2.task.add({ id: "1", description: "Task 1", userId: "Andy", recurrence: { period: "Weekly", value: "Mon" } }),
+        ].reduce(reducer, initialState);
+        expect((_a = redux_2.task.get(store, "1").recurrence) === null || _a === void 0 ? void 0 : _a.period).toEqual("Weekly");
+        expect((_b = redux_2.task.get(store, "1").recurrence) === null || _b === void 0 ? void 0 : _b.value).toEqual("Mon");
+    });
+});
+describe("utility function", function () {
+    describe("getRecurrenceDate", function () {
+        it("should return the next recurrence date", function () {
+            var dates = [
+                { cur: "September 29, 2020", next: "October 5, 2020", recurrence: { period: "Weekly", value: "Mon" } },
+                { cur: "September 29, 2020", next: "October 6, 2020", recurrence: { period: "Weekly", value: "Tue" } },
+                { cur: "September 29, 2020", next: "September 30, 2020", recurrence: { period: "Weekly", value: "Wed" } },
+                { cur: "December 30, 2020", next: "January 5, 2021", recurrence: { period: "Weekly", value: "Tue" } },
+                { cur: "September 29, 2020", next: "October 15, 2020", recurrence: { period: "Monthly", value: 15 } },
+                { cur: "September 10, 2020", next: "September 15, 2020", recurrence: { period: "Monthly", value: 15 } },
+                { cur: "September 29, 2020", next: "October 29, 2020", recurrence: { period: "Monthly", value: 29 } },
+                { cur: "December 20, 2020", next: "January 10, 2021", recurrence: { period: "Monthly", value: 10 } },
+                { cur: "February 27, 2021", next: "February 28, 2021", recurrence: { period: "Monthly", value: 30 } },
+                { cur: "February 28, 2020", next: "February 29, 2020", recurrence: { period: "Monthly", value: 30 } },
+                { cur: "February 29, 2020", next: "March 30, 2020", recurrence: { period: "Monthly", value: 30 } },
+                { cur: "January 30, 2020", next: "February 29, 2020", recurrence: { period: "Monthly", value: 30 } },
+                { cur: "January 31, 2020", next: "February 29, 2020", recurrence: { period: "Monthly", value: 30 } },
+                { cur: "January 2, 2020", next: "January 2, 2021", recurrence: { period: "Yearly", value: { month: "Jan", day: 2 } } },
+                { cur: "January 2, 2020", next: "February 3, 2020", recurrence: { period: "Yearly", value: { month: "Feb", day: 3 } } },
+                { cur: "February 2, 2020", next: "January 2, 2021", recurrence: { period: "Yearly", value: { month: "Jan", day: 2 } } },
+                { cur: "January 2, 2020", next: "February 29, 2020", recurrence: { period: "Yearly", value: { month: "Feb", day: 29 } } },
+                { cur: "January 2, 2021", next: "February 28, 2021", recurrence: { period: "Yearly", value: { month: "Feb", day: 29 } } },
+            ];
+            dates.forEach(function (test) {
+                var today = new Date(test.cur);
+                var next = new Date(test.next);
+                var recur = util_1.getRecurrenceDate(today, test.recurrence);
+                expect(recur.toDateString()).toEqual(next.toDateString());
+            });
+        });
+    });
+});
 describe("workflow utility functions", function () {
     describe("updateDescription", function () {
         it("should update the description", function () {

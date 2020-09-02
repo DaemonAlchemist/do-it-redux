@@ -1,6 +1,9 @@
-import { IEntityState } from "the-reducer";
+import { combineReducers } from "redux";
+import { IEntityState, theReducer } from "the-reducer";
 import { taskDef } from "./entityDefs";
-import { ITask, IWorkflow } from "./types";
+import { blocker, task, user, workflow } from "./redux";
+import { ITask, IWorkflow, MonthDay, WeekDay, Recurrence } from "./types";
+import { getRecurrenceDate } from "./util";
 import { addTask, removeParam, removeTask, updateDescription, updateParam, updateTaskDependencies, updateTaskDescription, updateTaskId, updateTaskUser } from './workflow';
 
 const origWorkflow:IWorkflow = {
@@ -16,6 +19,68 @@ const origWorkflow:IWorkflow = {
         {id: "test3", description: "Test3 task", userId: "Gemma", dependsOn: ["tes2"]},
     ],
 }
+
+const reducer = combineReducers({
+    theReducerEntities:  theReducer.entity(user, task, blocker, workflow),
+});
+
+const initialState = {
+    theReducerEntities: {}
+};
+
+describe("basic redux", () => {
+    it("should add tasks", () => {
+        const store:any = [
+            task.add({id: "1", description: "Task 1", userId: "Andy"}),
+        ].reduce(reducer, initialState);
+
+        expect(task.get(store, "1").description).toEqual("Task 1");
+    });
+    it("should save task recurrence values", () => {
+        const store:any = [
+            task.add({id: "1", description: "Task 1", userId: "Andy", recurrence: {period: "Weekly", value: "Mon"}}),
+        ].reduce(reducer, initialState);
+
+        expect(task.get(store, "1").recurrence?.period).toEqual("Weekly");
+        expect(task.get(store, "1").recurrence?.value).toEqual("Mon");
+    });
+});
+
+describe("utility function", () => {
+    describe("getRecurrenceDate", () => {
+        it("should return the next recurrence date", () => {
+            const dates:Array<{cur: string, next: string, recurrence: Recurrence}> = [
+                {cur: "September 29, 2020", next: "October 5, 2020",    recurrence: {period: "Weekly", value: "Mon"}},
+                {cur: "September 29, 2020", next: "October 6, 2020",    recurrence: {period: "Weekly", value: "Tue"}},
+                {cur: "September 29, 2020", next: "September 30, 2020", recurrence: {period: "Weekly", value: "Wed"}},
+                {cur: "December 30, 2020",  next: "January 5, 2021",    recurrence: {period: "Weekly", value: "Tue"}},
+
+                {cur: "September 29, 2020", next: "October 15, 2020",   recurrence: {period: "Monthly", value: 15}},
+                {cur: "September 10, 2020", next: "September 15, 2020", recurrence: {period: "Monthly", value: 15}},
+                {cur: "September 29, 2020", next: "October 29, 2020",   recurrence: {period: "Monthly", value: 29}},
+                {cur: "December 20, 2020",  next: "January 10, 2021",   recurrence: {period: "Monthly", value: 10}},
+                {cur: "February 27, 2021",  next: "February 28, 2021",  recurrence: {period: "Monthly", value: 30}},
+                {cur: "February 28, 2020",  next: "February 29, 2020",  recurrence: {period: "Monthly", value: 30}},
+                {cur: "February 29, 2020",  next: "March 30, 2020",     recurrence: {period: "Monthly", value: 30}},
+                {cur: "January 30, 2020",   next: "February 29, 2020",  recurrence: {period: "Monthly", value: 30}},
+                {cur: "January 31, 2020",   next: "February 29, 2020",  recurrence: {period: "Monthly", value: 30}},
+
+                {cur: "January 2, 2020", next: "January 2, 2021", recurrence: {period: "Yearly", value: {month: "Jan", day: 2}}},
+                {cur: "January 2, 2020", next: "February 3, 2020", recurrence: {period: "Yearly", value: {month: "Feb", day: 3}}},
+                {cur: "February 2, 2020", next: "January 2, 2021", recurrence: {period: "Yearly", value: {month: "Jan", day: 2}}},
+                {cur: "January 2, 2020", next: "February 29, 2020", recurrence: {period: "Yearly", value: {month: "Feb", day: 29}}},
+                {cur: "January 2, 2021", next: "February 28, 2021", recurrence: {period: "Yearly", value: {month: "Feb", day: 29}}},
+            ]
+            dates.forEach((test) => {
+                const today = new Date(test.cur);
+                const next = new Date(test.next);
+                const recur = getRecurrenceDate(today, test.recurrence);
+
+                expect(recur.toDateString()).toEqual(next.toDateString());
+            });
+        });
+    });
+});
 
 describe("workflow utility functions", () => {
     describe("updateDescription", () => {

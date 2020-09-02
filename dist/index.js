@@ -10,3 +10,5 @@ exports.blocker = redux_1.blocker;
 exports.task = redux_1.task;
 exports.user = redux_1.user;
 exports.workflow = redux_1.workflow;
+var util_1 = require("./util");
+exports.getRecurrenceDate = util_1.getRecurrenceDate;
